@@ -5,7 +5,6 @@ const searchSuffix = "&compact=y";
 
 
 const GET_REPORT_DATA = function (Currencies){
-    Currencies = "GBP_INR";
     const url = searchPrefix + Currencies + searchSuffix;
     var result = null;
     $.ajax({

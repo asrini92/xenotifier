@@ -44,25 +44,9 @@ handleSubmit(event) {
   render() {
     return (
       <div className="App">
-           <table>
-              <tbody>
-                  <tr> 
-                      <td colSpan="2"> 
-                          <h3> Enter the City you want to track </h3> 
-                      </td>
-                  </tr>
-                  <tr>
-                      <td id="mobileLabel">Mobile Number</td>
-                      <td>
-                          <CountryCode
-                              required />
-                              <span class="validity"></span>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-            {
-              this.state.showresult ? <Result temperature = {this.state.temperature} time = {this.state.time} city = {this.state.value} overall = {this.state.overall} /> : null }
+                          <CountryCode />
+                            {/* <span class="validity"></span> */}
+                      
       </div>
     );
   }

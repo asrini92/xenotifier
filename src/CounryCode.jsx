@@ -10,35 +10,21 @@ class CountryCode extends Component{
             toCurrency: '',
             value:'',
             submitValue:'',
+            countryOptions:[],
+            currencyOptions:[],
             renderFlag:true
         };
 
-        this.handleToCurrencyChange = this.handleChange.bind(this);
-        this.handleFromCurrencyChange = this.handleChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);  
+        this.handleChange = this.handleChange.bind(this);  
     }       
 
-    handleFromCurrencyChange(event) {
-        this.setState({fromCurrency: event.target.value});
-        event.preventDefault();
-    }
-
-    handleToCurrencyChange(event) {
-        this.setState({toCurrency: event.target.value});
-        event.preventDefault();
-    }
-
     handleChange(event) {
-        this.setState({value: event.target.value});
-        event.preventDefault();
-    }
-
-    handleSubmit(event) {
-        if(this.state.fromCurrency === '' || this.state.toCurrency === ''){
-            alert("hi select something");
+        if(event.target.name === "fromCurrency"){
+            this.setState({fromCurrency: event.target.value});
+        } else if(event.target.name === "toCurrency"){
+            this.setState({toCurrency: event.target.value});
         } else{
-            this.state.submitValue = this.state.fromCurrency+"_"+this.state.toCurrency;
+            this.setState({value: event.target.value});
         }
         event.preventDefault();
     }
@@ -58,10 +44,9 @@ class CountryCode extends Component{
 
     render(){
         
-        var currencyOptions = [<option value=''><h6>Select One</h6></option>];
-        var countryOptions = [<option value=''><h6>Select One</h6></option>];
-
-        if(this.state.renderFlag){
+        if(this.state.renderFlag){ 
+            var currencyOptions = [<option value=''><h6>Select One</h6></option>];
+            var countryOptions = [<option value=''><h6>Select One</h6></option>];
             const countryNames = this.getJsonData("http://country.io/names.json");
             const Currencies = this.getJsonData("http://country.io/currency.json");
             
@@ -71,7 +56,9 @@ class CountryCode extends Component{
             Object.keys(countryNames).forEach(function(key) {
                 countryOptions.push(<option value={Currencies[key]}>{countryNames[key]}</option>);
             })
-            this.state.renderFlag = false;
+            this.setState({currencyOptions : currencyOptions});
+            this.setState({countryOptions : countryOptions});
+            this.setState({renderFlag : false});
         }
 
         return(
@@ -79,9 +66,10 @@ class CountryCode extends Component{
                 <table>
                     <tbody>
                         <tr> 
+                            <td>  <h3>Select a country to know it's currency:</h3> </td>
                             <td>
-                                <select name="countryCode" id="countryCode" onChange={this.handleChange} onBlur={this.handleSubmit}>
-                                    {countryOptions}
+                                <select name="countryCode" id="countryCode" onChange={this.handleChange} >
+                                    {this.state.countryOptions}
                                 </select>
                             </td>
                             <td>
@@ -91,20 +79,24 @@ class CountryCode extends Component{
                         <tr>
                             <td>
                                 <h3>From:</h3>
-                                <select name="fromCurrency" id="fromCurrency" onChange={this.handleFromCurrencyChange} onBlur={this.handleSubmit}>
-                                    {currencyOptions}
+                                <select name="fromCurrency" id="fromCurrency" onChange={this.handleChange} >
+                                    {this.state.currencyOptions}
                                 </select>
                             </td>
                             <td>
                                 <h3>To:</h3>
-                                <select name="toCurrency" id="toCurrency" onChange={this.handleToCurrencyChange} onBlur={this.handleSubmit}>
-                                    {currencyOptions}
+                                <select name="toCurrency" id="toCurrency" onChange={this.handleChange} >
+                                    {this.state.currencyOptions}
                                 </select>
                             </td>
                         </tr>
+                        <tr/><tr/><tr/><tr/><tr/><tr/><tr/><tr/><tr/><tr/>
                         <tr>
                             <td>
-                                <button type="button" onSubmit = {this.handlesubmit} >Submit</button>
+                                <SubmitButton 
+                                    fromValue={this.state.fromCurrency}
+                                    toValue={this.state.toCurrency}
+                                />
                             </td>
                         </tr>
                     </tbody>

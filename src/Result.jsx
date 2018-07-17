@@ -3,20 +3,20 @@ import React, { Component } from 'react';
 class Result extends Component{
 
     render(){
-        if(this.props.overall === ''){
+        if(this.props.exchangeValue === ''){
             return null;
         }
         else{
             return(
                 <div>
-                    <table>
+                    {/* <table>
                         <tbody>
                             <tr> 
-                                <td colSpan="2"> 
-                                    <h3> Weather conditions at {this.props.city} are as follows: </h3> 
-                                </td>
+                                <td colSpan="2">  */}
+                                    <h3> Your Exchange Rate from {this.props.from}  to  {this.props.to} is : <h4>{this.props.exchangeValue}</h4> </h3> 
+                               {/* </td>
                             </tr>
-                            <tr>
+                             <tr>
                                 <td>Date</td>
                                 <td>Temperature</td>
                                 <td>Overall</td>
@@ -25,9 +25,9 @@ class Result extends Component{
                                 <td>{this.props.time}</td>
                                 <td>{this.props.temperature}</td>
                                 <td>{this.props.overall}</td>
-                            </tr>
+                            </tr> 
                         </tbody>
-                    </table>
+                    </table>*/}
                 </div>
             );
         } 
